@@ -1,0 +1,77 @@
+
+<!DOCTYPE html >
+<html>
+<head>
+    <title>太极统一认证</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div class="navbar navbar-dark box-shadow"></div>
+</header>
+<section class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header col-md-4 col-md-offset-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">太极统一认证平台</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form name="form-signin" action="/myLogin" method="POST">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="用户名" name="username" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="密码" name="password" type="password"
+                                           value=""/>
+                                </div>
+                                <div class="checkbox" style="display: none">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me"/>
+                                        Remember Me
+                                    </label>
+                                </div>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="登录"/>
+<!--                                <div class="templatemo-other-signin col-md-6" style="display: none">-->
+<!--                                    <label class="margin-bottom-15"> 第三方帐号登录 </label>-->
+<!--                                    <a class="btn btn-block btn-social btn-facebook margin-bottom-15">-->
+<!--                                        <i class="fa fa-facebook"></i>-->
+<!--                                        Sign in with Facebook-->
+<!--                                    </a>-->
+<!--                                    <a class="btn btn-block btn-social btn-github"-->
+<!--                                       onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-github']);">-->
+<!--                                        <span class="fa fa-github"></span>-->
+<!--                                        Sign in with GitHub-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <input type="hidden" name="_csrf"-->
+<!--                                       value="738995b7-07f6-41f1-978a-adcfe3eba4f5"/>-->
+
+<!--                                <center>-->
+
+<!--                                    <input type="hidden" name="_csrf"-->
+<!--                                           value="738995b7-07f6-41f1-978a-adcfe3eba4f5"/>-->
+<!--                                </center>-->
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="text-center">2018-2019 &copy;太极计算机股份有限公司 版权所有</div>
+    </div>
+</nav>
+</body>
+</html>
