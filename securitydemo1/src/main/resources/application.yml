@@ -19,7 +19,8 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    initialization-mode: embedded //sql文件建表
+    initialization-mode: always
+
   jpa:
     database: mysql
     show-sql: true

@@ -17,6 +17,7 @@
 
     <modules>
         <module>securitydemo1</module>
+        <module>securitydemo2</module>
     </modules>
 
     <properties>

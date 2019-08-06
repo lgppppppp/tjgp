@@ -29,4 +29,16 @@ public class IndexController {
     public String admin(){
         return "admin";
     }
+
+    @ResponseBody
+    @RequestMapping("/a")
+    public String a(){
+        return "a";
+    }
+
+    @ResponseBody
+    @RequestMapping("/b")
+    public String b(){
+        return "b";
+    }
 }

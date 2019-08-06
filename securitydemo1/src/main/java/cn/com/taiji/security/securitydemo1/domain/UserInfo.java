@@ -15,7 +15,7 @@ public class UserInfo {
 //        ROLE_ADMIN,ROLE_USER
 //    }
     @ManyToMany(fetch = FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "UserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @JoinTable(name = "UserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "rid")})
     private List<Role> roles;
     @Id
     @GeneratedValue

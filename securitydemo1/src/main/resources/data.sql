@@ -1,27 +1,32 @@
-/*
-Navicat MySQL Data Transfer
+-- INSERT INTO `users` VALUES ('admin', '$2a$10$vLSbLoHEsnjqlHVe8pv24ec11Qr/Qi.RfY7DiBE/cGfu1sdwbOQ82', '1'), ('user', '$2a$10$vLSbLoHEsnjqlHVe8pv24ec11Qr/Qi.RfY7DiBE/cGfu1sdwbOQ82', '1');
+-- INSERT INTO `authorities` VALUES ('admin', 'ROLE_ADMIN'), ('user', 'ROLE_USER');
 
-Source Server         : localhost
-Source Server Version : 50717
-Source Host           : localhost:3306
-Source Database       : test1
+-- insert into user_info (password, roles, username, uid) values ('$2a$10$vLSbLoHEsnjqlHVe8pv24ec11Qr/Qi.RfY7DiBE/cGfu1sdwbOQ82', 'ROLE_ADMIN', 'admin', '1')
+-- insert into user_info (password, roles, username, uid) values ('$2a$10$vLSbLoHEsnjqlHVe8pv24ec11Qr/Qi.RfY7DiBE/cGfu1sdwbOQ82', 'ROLE_USER', 'user', '2')
 
-Target Server Type    : MYSQL
-Target Server Version : 50717
-File Encoding         : 65001
+-- 初始化role
+insert into role (role_name, description,rid) values ('ROLE_ADMIN', '管理员','1')
+insert into role (role_name, description,rid) values ('ROLE_USER', '普通用户','2')
 
-Date: 2019-08-02 15:44:52
-*/
+-- 初始化user
+insert into user_info (password, username, uid) values ('$2a$10$j0T8C80mrdtDx5I1UL85teUtMY2/23UEb7kR5toVcvnbSqpsubgme', 'admin', '1')
+insert into user_info (password, username, uid) values ('$2a$10$j0T8C80mrdtDx5I1UL85teUtMY2/23UEb7kR5toVcvnbSqpsubgme', 'user', '2')
+insert into user_info (password, username, uid) values ('$2a$10$j0T8C80mrdtDx5I1UL85teUtMY2/23UEb7kR5toVcvnbSqpsubgme', 'user2', '3')
 
+-- 给User配置Role
+insert into user_role (rid, uid) values ('1','1')
+insert into user_role (rid, uid) values ('2','2')
+insert into user_role (rid, uid) values ('2','3')
 
+-- 初始化所有接口
+insert into permission (pid, url) values ('1','/user')
+insert into permission (pid, url) values ('2','/admin')
+insert into permission (pid, url) values ('3','/a')
+insert into permission (pid, url) values ('4','/b')
 
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES ('u', '$2a$10$j0T8C80mrdtDx5I1UL85teUtMY2/23UEb7kR5toVcvnbSqpsubgme', '1');
-INSERT INTO `users` VALUES ('a', '$2a$10$j0T8C80mrdtDx5I1UL85teUtMY2/23UEb7kR5toVcvnbSqpsubgme', '1');
--- ----------------------------
--- Records of authorities
--- ----------------------------
-INSERT INTO `authorities` VALUES ('u', 'ROLE_user');
-INSERT INTO `authorities` VALUES ('a', 'ROLE_admin');
+-- 增加默认的权限配置
+insert into role_permission(pid, rid) values ('1','1')
+insert into role_permission(pid, rid) values ('1','2')
+insert into role_permission(pid, rid) values ('2','1')
+insert into role_permission(pid, rid) values ('3','1')
+insert into role_permission(pid, rid) values ('4','1')

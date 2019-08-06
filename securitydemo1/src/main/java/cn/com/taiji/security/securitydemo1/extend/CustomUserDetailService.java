@@ -27,11 +27,11 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private UserInfoService userInfoService;
 
-    //    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("CustomUserDetailService.loadUserByUsername()");
         //通过username获取用户信息
         UserInfo userInfo = userInfoService.findByUsername(username);
         if (userInfo == null) {
@@ -41,9 +41,9 @@ public class CustomUserDetailService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 //用户可以访问的资源名称（或者说用户所拥有的权限）注意：必须"ROLE_"开头
         for (Role role : userInfo.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
-        User userDetails = new User(userInfo.getUsername(), userInfo.getPassword(), authorities);
+        User userDetails = new User(userInfo.getUsername(),userInfo.getPassword(), authorities);
         return userDetails;
     }
 }

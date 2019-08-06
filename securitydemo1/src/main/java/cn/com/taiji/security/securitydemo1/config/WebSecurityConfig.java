@@ -1,11 +1,13 @@
 package cn.com.taiji.security.securitydemo1.config;
 
+import cn.com.taiji.security.securitydemo1.extend.CustomUserDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -38,33 +40,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     @Autowired
-    private DataSource dataSource;
+    private CustomUserDetailService customUserDetailService;
 
     @Override
     //设置用户名和密码
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        String password=passwordEncoder().encode("1");
-        auth.jdbcAuthentication().dataSource(dataSource)
-//                .withUser("u").password(password).roles("user")
-//                .and()
-//                .withUser("a").password(password).roles("admin")
-        ;
+        auth
+                .userDetailsService(customUserDetailService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+        web.ignoring().antMatchers("/css/**", "/images/**", "/js/**", "/webjars/**");
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
         logger.info("security demo");
 
         http
                 .authorizeRequests()//对请求授权
                 .antMatchers("/error").permitAll()
-                .antMatchers("/user").hasRole("user")//对user授权，user可以访问user页面
-                .antMatchers("/admin").hasRole("admin")//admin授权 ，admin可以访问admin页面
-                .anyRequest().authenticated()//所有请求都需要认证
+//                .antMatchers("/user").hasAnyRole("user","admin")//对user授权，user可以访问user页面
+//                .antMatchers("/admin").hasRole("admin")//admin授权 ，admin可以访问admin页面
+                .anyRequest().access("@customerAuthService.canAccess(request,authentication)")
+//                .anyRequest().authenticated()//所有请求都需要认证
                 .and()
                 .formLogin()//定义登陆方式为form表单登陆
                 .loginPage("/myLogin")//定义登陆页面
-                .loginProcessingUrl("/myLogin")//登录请求拦截的url,也就是form表单提交时指定的action(自定义登陆路径)
+//                .loginProcessingUrl("/myLogin")//登录请求拦截的url,也就是form表单提交时指定的action(自定义登陆路径)
                 .defaultSuccessUrl("/index")
                 //定义默认登陆成功跳转页面的URL;
                 // 默认情况下，用户登录成功后由于RequestCache中保存着登录之前的url，将自动跳转到该页面
